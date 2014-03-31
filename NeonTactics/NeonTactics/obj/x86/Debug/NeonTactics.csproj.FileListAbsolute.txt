@@ -1,0 +1,11 @@
+c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\NeonTactics.exe
+c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\NeonTactics.pdb
+c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\obj\x86\Debug\NeonTactics.csprojResolveAssemblyReference.cache
+c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\obj\x86\Debug\NeonTactics.exe
+c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\obj\x86\Debug\NeonTactics.pdb
+c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\greenplayer.xnb
+c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\purpleplayer.xnb
+c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\greennode.xnb
+c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\purplenode.xnb
+c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\whitenode.xnb

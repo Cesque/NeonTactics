@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>greenplayer.png</Source>
+      <Name>greenplayer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\greenplayer.xnb</Output>
+      <Time>2014-03-31T16:11:53.5575308+01:00</Time>
+    </Item>
+    <Item>
+      <Source>purpleplayer.png</Source>
+      <Name>purpleplayer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\purpleplayer.xnb</Output>
+      <Time>2014-03-31T16:11:53.561531+01:00</Time>
+    </Item>
+    <Item>
+      <Source>greennode.png</Source>
+      <Name>greennode</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\greennode.xnb</Output>
+      <Time>2014-03-31T16:11:52.3694629+01:00</Time>
+    </Item>
+    <Item>
+      <Source>purplenode.png</Source>
+      <Name>purplenode</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\purplenode.xnb</Output>
+      <Time>2014-03-31T16:11:53.5595309+01:00</Time>
+    </Item>
+    <Item>
+      <Source>whitenode.png</Source>
+      <Name>whitenode</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\whitenode.xnb</Output>
+      <Time>2014-03-31T16:11:53.5625311+01:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID>{13752F65-18B6-4D14-8E59-24892DAFAE41}</ContentProjectGUID>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTacticsContent\</RootDirectory>
+      <LoggerRootDirectory>c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\</LoggerRootDirectory>
+      <IntermediateDirectory>c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2011-09-01T16:22:30+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2011-09-01T16:22:30+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2012-10-15T19:39:56.2788847+01:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
