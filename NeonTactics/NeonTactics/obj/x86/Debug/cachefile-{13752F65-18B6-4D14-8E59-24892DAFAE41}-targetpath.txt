@@ -3,3 +3,8 @@ Content\purpleplayer.xnb
 Content\greennode.xnb
 Content\purplenode.xnb
 Content\whitenode.xnb
+Content\Effect1.xnb
+Content\BloomCombine.xnb
+Content\BloomExtract.xnb
+Content\GaussianBlur.xnb
+Content\bg.xnb

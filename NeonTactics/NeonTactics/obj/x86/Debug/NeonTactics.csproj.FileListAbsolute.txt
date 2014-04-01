@@ -9,3 +9,8 @@ c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\Ne
 c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\greennode.xnb
 c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\purplenode.xnb
 c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\whitenode.xnb
+C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\Effect1.xnb
+C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\BloomCombine.xnb
+C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\BloomExtract.xnb
+C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\GaussianBlur.xnb
+C:\Users\Daniel\Documents\Visual Studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\bg.xnb

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using BloomPostprocess;
 
 namespace NeonTactics
 {
@@ -19,10 +20,13 @@ namespace NeonTactics
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Texture2D p1Sprite, p2Sprite;
-        Player player1, player2;
+        Texture2D bg;
 
         NodeManager nodeManager;
+        PlayerManager playerManager;
+        ParticleManager particleManager;
+
+        BloomComponent bloom;
 
         public Game1()
         {
@@ -41,6 +45,10 @@ namespace NeonTactics
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            bloom = new BloomComponent(this);
+            Components.Add(bloom);
+            //bloom.Settings = new BloomSettings(null, 0.25f, 4, 2, 1, 1.5f, 1);
+            bloom.Settings = new BloomSettings(null, 0.0f, 4, 3, 1, 1.5f, 1);
             base.Initialize();
         }
 
@@ -53,24 +61,26 @@ namespace NeonTactics
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            p1Sprite = Content.Load<Texture2D>("greenplayer");
-            p2Sprite = Content.Load<Texture2D>("purpleplayer");
+            bg = Content.Load<Texture2D>("bg");
 
-            Texture2D line = new Texture2D(GraphicsDevice,1,1);
-            line.SetData<Color>(new Color[] {Color.White});
+            Texture2D line = new Texture2D(GraphicsDevice, 1, 1);
+            line.SetData<Color>(new Color[] { Color.White });
 
+            playerManager = new PlayerManager(
+                Content.Load<Texture2D>("greenplayer"),
+                Content.Load<Texture2D>("purpleplayer"));
             nodeManager = new NodeManager(
                 Content.Load<Texture2D>("greennode"),
                 Content.Load<Texture2D>("purplenode"),
                 Content.Load<Texture2D>("whitenode"),
-                line
-                );
+                line);
+            particleManager = new ParticleManager(line);
 
-            nodeManager.AddNode();
-            nodeManager.AddNode();
-
-            player1 = new Player(p1Sprite, new Vector2(100, 100), Team.GREEN);
-            player2 = new Player(p2Sprite, new Vector2(700, 700), Team.PURPLE);
+            for (int i = 0; i < 4; i++)
+            {
+                nodeManager.AddNode();
+                playerManager.AddPlayer(i);
+            }
             // TODO: use this.Content to load your game content here
         }
 
@@ -95,9 +105,56 @@ namespace NeonTactics
                 this.Exit();
 
             // TODO: Add your update logic here
-            player1.Update(gameTime);
-            player2.Update(gameTime);
+            playerManager.Update(gameTime);
             nodeManager.Update(gameTime);
+            particleManager.Update(gameTime);
+
+            nodeManager.Nodes.ForEach(n =>
+            {
+                playerManager.Players.ForEach(p =>
+                {
+                    if (p.GetBoundingBox().Intersects(n.GetBoundingBox()))
+                    {
+                        n.BelongsTo = p.PlayerTeam;
+                    }
+
+                    if (Globals.LineIntersectsRect(n.GetLine().Start, n.GetLine().End, p.GetBoundingBox()))
+                    {
+                        if (n.BelongsTo != Team.NEUTRAL && n.BelongsTo != p.PlayerTeam)
+                        {
+                            //player dies
+                            p.Die();
+                        }
+                    }
+                });
+                if (n.BelongsTo != Team.NEUTRAL)
+                {
+                    for (int i = 0; i < 25; i++)
+                    {
+                        var line = n.GetLine();
+                        var f = (float)Globals.RNG.NextDouble();
+                        var x = MathHelper.Lerp(line.Start.X, line.End.X, f);//((float)i) / 100);
+                        var y = MathHelper.Lerp(line.Start.Y, line.End.Y, f);//((float)i) / 100);
+                        var p = new Vector2(x, y);
+                        var v = new Vector2((float)(Globals.RNG.NextDouble()*0.4) - 0.2f, (float)(Globals.RNG.NextDouble()*0.4) - 0.2f);
+                        particleManager.Add(p, v, n.GetTeamColor()*0.3f);
+                    }
+                }
+            });
+
+            for (int i = 0; i < playerManager.Players.Count; i++)
+            {
+                var player = playerManager.Players[i];               
+
+
+
+                var velocity = GamePad.GetState((PlayerIndex)player.PlayerNumber).ThumbSticks.Left;
+
+                for (int j = 0; j < 2; j++)
+                {
+                    particleManager.Add(player.Position, new Vector2(-velocity.X + 0.5f-(float)Globals.RNG.NextDouble(), velocity.Y + 0.5f-(float)Globals.RNG.NextDouble()), player.PlayerTeam == Team.GREEN ? Color.Green : Color.Purple);
+                }
+            }
 
             base.Update(gameTime);
         }
@@ -109,14 +166,18 @@ namespace NeonTactics
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Globals.BackgroundColor);
+            bloom.BeginDraw();
             spriteBatch.Begin();
             {
+                spriteBatch.Draw(bg, new Rectangle(0, 0, Globals.Width, Globals.Height), Color.White);
+                particleManager.Draw(spriteBatch);
                 nodeManager.Draw(spriteBatch);
-                player1.Draw(spriteBatch);
-                player2.Draw(spriteBatch);
+                playerManager.Draw(spriteBatch);
             }
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
+       
     }
 }

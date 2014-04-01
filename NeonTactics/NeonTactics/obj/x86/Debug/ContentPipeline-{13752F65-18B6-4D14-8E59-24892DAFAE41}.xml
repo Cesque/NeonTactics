@@ -46,6 +46,51 @@
       <Output>c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\whitenode.xnb</Output>
       <Time>2014-03-31T16:11:53.5625311+01:00</Time>
     </Item>
+    <Item>
+      <Source>Effect1.fx</Source>
+      <Name>Effect1</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\Effect1.xnb</Output>
+      <Time>2014-04-01T16:27:27.8185912+01:00</Time>
+    </Item>
+    <Item>
+      <Source>BloomCombine.fx</Source>
+      <Name>BloomCombine</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\BloomCombine.xnb</Output>
+      <Time>2014-04-01T16:34:20.0241681+01:00</Time>
+    </Item>
+    <Item>
+      <Source>BloomExtract.fx</Source>
+      <Name>BloomExtract</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\BloomExtract.xnb</Output>
+      <Time>2014-04-01T16:34:20.0271682+01:00</Time>
+    </Item>
+    <Item>
+      <Source>GaussianBlur.fx</Source>
+      <Name>GaussianBlur</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\GaussianBlur.xnb</Output>
+      <Time>2014-04-01T16:34:20.0301684+01:00</Time>
+    </Item>
+    <Item>
+      <Source>bg.png</Source>
+      <Name>bg</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\bg.xnb</Output>
+      <Time>2014-04-01T16:44:12.5870607+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{13752F65-18B6-4D14-8E59-24892DAFAE41}</ContentProjectGUID>
@@ -53,10 +98,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTacticsContent\</RootDirectory>
-      <LoggerRootDirectory>c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\</LoggerRootDirectory>
-      <IntermediateDirectory>c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>c:\users\daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Daniel\Documents\Visual Studio 2012\Projects\NeonTactics\NeonTactics\NeonTacticsContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

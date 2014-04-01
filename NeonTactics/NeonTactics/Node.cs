@@ -58,9 +58,14 @@ namespace NeonTactics
         public Texture2D CurrentSprite { get; set; }
         public Texture2D LineSprite { get; set; }
         public float Rotation { get; set; }
+        public float RotationSpeed { get; set; }
         public Vector2 Velocity { get; set; }
 
-        public Node(Texture2D green, Texture2D purple, Texture2D white, Texture2D line, Vector2 position) : this(green, purple, white, line, position, (float)(Globals.RNG.NextDouble() * MathHelper.TwoPi)) { }
+        public Node(Texture2D green, Texture2D purple, Texture2D white, Texture2D line, Vector2 position) : this(green, purple, white, line, position, 0.0f ) 
+        {
+            Rotation = (float)Globals.RNG.NextDouble() * MathHelper.TwoPi;
+            var x = Rotation;
+        }
         public Node(Texture2D green, Texture2D purple, Texture2D white, Texture2D line, Vector2 position, float rotation)
         {
             SpriteGreen = green;
@@ -71,12 +76,13 @@ namespace NeonTactics
             BelongsTo = Team.NEUTRAL;
             Velocity = new Vector2(0.5f - (float)(Globals.RNG.NextDouble() * 1), 0.5f - (float)(Globals.RNG.NextDouble() * 1));
             LineSprite = line;
+            RotationSpeed = (float)(Globals.NodeRotationSpeed - (Globals.RNG.NextDouble() * Globals.NodeRotationSpeed * 2));
         }
 
         public void Update(GameTime gameTime)
         {
             Position += Velocity;
-            Rotation += Globals.NodeRotationSpeed;
+            Rotation += RotationSpeed;
             Rotation %= MathHelper.TwoPi;
         }
 
@@ -84,15 +90,42 @@ namespace NeonTactics
         {
             //here we want to draw the line, this code doesn't work but demonstrates the ability to draw a line from point A to point B
             //now we need to work out what point A and B are!
-            DrawLineTo(s, LineSprite, new Vector2(0.0f, 0.0f), Position, Color.White);
-            s.Draw(CurrentSprite, new Rectangle((int)Position.X, (int)Position.Y, CurrentSprite.Width, CurrentSprite.Height), null, Color.White, Rotation, new Vector2(CurrentSprite.Width / 2, CurrentSprite.Height / 2), SpriteEffects.None, 0.0f);
+            if (BelongsTo != Team.NEUTRAL)
+            {
+                DrawLineTo(s, LineSprite, GetLine().Start, GetLine().End, GetTeamColor());
+            }
+            s.Draw(CurrentSprite, GetBoundingBox(), null, Color.White, Rotation, new Vector2(CurrentSprite.Width / 2, CurrentSprite.Height / 2), SpriteEffects.None, 0.0f);
 
         }
 
         public Line GetLine()
         {
             //maybe use this to determine collisions?
-            return null;
+            var a = Rotation;
+            var x = Position.X + Math.Sin(-Rotation) * Globals.Width;
+            var y = Position.Y + Math.Cos(-Rotation) * Globals.Height;
+
+            var x2 = Position.X - Math.Sin(-Rotation) * Globals.Width;
+            var y2 = Position.Y - Math.Cos(-Rotation) * Globals.Height;
+
+            return new Line(new Vector2((float)x, (float)y), new Vector2((float)x2, (float)y2));
+            //return null;
+        }
+
+        public Color GetTeamColor()
+        {
+            if (BelongsTo == Team.GREEN)
+            {
+                return Color.LightGreen;
+            }
+            else if (BelongsTo == Team.PURPLE)
+            {
+                return Color.Purple;
+            }
+            else
+            {
+                return Color.White;
+            }
         }
 
         //adapted from http://neptunecentury.blogspot.co.uk/2013/06/xna-40-draw-line-between-two-points.html
@@ -107,7 +140,12 @@ namespace NeonTactics
             Vector2.Distance(ref src, ref dst, out distance);
 
             //draw the sprite with rotation
-            sb.Draw(texture, src, new Rectangle((int)src.X, (int)src.Y, (int)distance, 1), Color.White, angle, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+            sb.Draw(texture, src, new Rectangle((int)src.X, (int)src.Y, (int)distance, 2), color, angle, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+        }
+
+        public Rectangle GetBoundingBox()
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, CurrentSprite.Width, CurrentSprite.Height);
         }
     }
 }
