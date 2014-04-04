@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="BloomComponent.cs" />
     <Compile Include="BloomSettings.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="NodeManager.cs" />
     <Compile Include="Particle.cs" />

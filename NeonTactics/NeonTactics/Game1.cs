@@ -26,7 +26,13 @@ namespace NeonTactics
         PlayerManager playerManager;
         ParticleManager particleManager;
 
+        GameState gameState;
+
+        Team winningTeam = Team.NEUTRAL;
+
         BloomComponent bloom;
+
+        SpriteFont forte;
 
         public Game1()
         {
@@ -66,6 +72,8 @@ namespace NeonTactics
             Texture2D line = new Texture2D(GraphicsDevice, 1, 1);
             line.SetData<Color>(new Color[] { Color.White });
 
+            forte = Content.Load<SpriteFont>("forte");
+
             playerManager = new PlayerManager(
                 Content.Load<Texture2D>("greenplayer"),
                 Content.Load<Texture2D>("purpleplayer"));
@@ -75,6 +83,8 @@ namespace NeonTactics
                 Content.Load<Texture2D>("whitenode"),
                 line);
             particleManager = new ParticleManager(line);
+
+            gameState = GameState.RUNNING;
 
             for (int i = 0; i < 4; i++)
             {
@@ -100,11 +110,71 @@ namespace NeonTactics
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
             // TODO: Add your update logic here
+            switch (gameState)
+            {
+                case GameState.RUNNING:
+                    RunningUpdate(gameTime);
+                    break;
+                case GameState.FINISHED:
+                    FinishedUpdate(gameTime);
+                    break;
+            }
+
+            base.Update(gameTime);
+        }
+
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Globals.BackgroundColor);
+            bloom.BeginDraw();
+            spriteBatch.Begin();
+            {
+                spriteBatch.Draw(bg, new Rectangle(0, 0, Globals.Width, Globals.Height), Color.White);
+                switch (gameState)
+                {
+                    case GameState.RUNNING:
+                        RunningDraw(gameTime);
+                        break;
+                    case GameState.FINISHED:
+                        FinishedDraw(gameTime);
+                        break;
+                }
+                
+            }
+            spriteBatch.End();
+            base.Draw(gameTime);
+        }
+
+        private bool HasTeamWon()
+        {
+            if (playerManager.Players.Count == 1)
+            {
+                return true;
+            }
+            for (int i = 0; i < playerManager.Players.Count - 1; i++)
+            {
+                if (playerManager.Players[i].PlayerTeam != playerManager.Players[i + 1].PlayerTeam)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        //only call this AFTER calling HasTeamWon() - this will not return any meaningful result
+        //if a team hasn't won the game yet (reading the code should make it obvious why really)
+        private Team GetWinningTeam()
+        {
+            return playerManager.Players[0].PlayerTeam;
+        }
+
+        private void RunningUpdate(GameTime gameTime)
+        {
             playerManager.Update(gameTime);
             nodeManager.Update(gameTime);
             particleManager.Update(gameTime);
@@ -136,15 +206,15 @@ namespace NeonTactics
                         var x = MathHelper.Lerp(line.Start.X, line.End.X, f);//((float)i) / 100);
                         var y = MathHelper.Lerp(line.Start.Y, line.End.Y, f);//((float)i) / 100);
                         var p = new Vector2(x, y);
-                        var v = new Vector2((float)(Globals.RNG.NextDouble()*0.4) - 0.2f, (float)(Globals.RNG.NextDouble()*0.4) - 0.2f);
-                        particleManager.Add(p, v, n.GetTeamColor()*0.3f);
+                        var v = new Vector2((float)(Globals.RNG.NextDouble() * 0.4) - 0.2f, (float)(Globals.RNG.NextDouble() * 0.4) - 0.2f);
+                        particleManager.Add(p, v, n.GetTeamColor() * 0.3f);
                     }
                 }
             });
 
             for (int i = 0; i < playerManager.Players.Count; i++)
             {
-                var player = playerManager.Players[i];               
+                var player = playerManager.Players[i];
 
 
 
@@ -152,32 +222,61 @@ namespace NeonTactics
 
                 for (int j = 0; j < 2; j++)
                 {
-                    particleManager.Add(player.Position, new Vector2(-velocity.X + 0.5f-(float)Globals.RNG.NextDouble(), velocity.Y + 0.5f-(float)Globals.RNG.NextDouble()), player.PlayerTeam == Team.GREEN ? Color.Green : Color.Purple);
+                    particleManager.Add(player.Position, new Vector2(-velocity.X + 0.5f - (float)Globals.RNG.NextDouble(), velocity.Y + 0.5f - (float)Globals.RNG.NextDouble()), player.PlayerTeam == Team.GREEN ? Color.Green : Color.Purple);
                 }
             }
 
-            base.Update(gameTime);
-        }
-
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Globals.BackgroundColor);
-            bloom.BeginDraw();
-            spriteBatch.Begin();
+            if (HasTeamWon())
             {
-                spriteBatch.Draw(bg, new Rectangle(0, 0, Globals.Width, Globals.Height), Color.White);
-                particleManager.Draw(spriteBatch);
-                nodeManager.Draw(spriteBatch);
-                playerManager.Draw(spriteBatch);
+                winningTeam = GetWinningTeam();
+                gameState = GameState.FINISHED;
             }
-            spriteBatch.End();
-            base.Draw(gameTime);
+        }
+        private void RunningDraw(GameTime gameTime)
+        {
+            particleManager.Draw(spriteBatch);
+            nodeManager.Draw(spriteBatch);
+            playerManager.Draw(spriteBatch);
         }
 
-       
+        private void FinishedUpdate(GameTime gameTime)
+        {
+            var x = 6;
+            for (int i = 0; i < 10; i++)
+            {
+                particleManager.Add(new Vector2(Globals.Width / 2, Globals.Height / 2), new Vector2((float)(x - (Globals.RNG.NextDouble() * (x * 2))), (float)(x - (Globals.RNG.NextDouble() * (x * 2)))), winningTeam == Team.GREEN ? Color.Green : Color.Purple);
+            }
+            particleManager.Update(gameTime);
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
+            {
+                Reset();
+            }
+        }
+
+        private void FinishedDraw(GameTime gameTime)
+        {
+            var s = winningTeam == Team.GREEN ? "GREEN" : "PURPLE";
+            var v = forte.MeasureString("WINNER:");
+            var t = forte.MeasureString(s);
+            var c = winningTeam == Team.GREEN ? Color.LightGreen : Color.Purple;
+
+            particleManager.Draw(spriteBatch);
+            spriteBatch.DrawString(forte, "WINNER:", new Vector2((Globals.Width / 2) - (v.X / 2), (Globals.Height / 2) - (v.Y / 2) - 50), Color.White);
+            spriteBatch.DrawString(forte, s, new Vector2((Globals.Width / 2) - (t.X / 2), (Globals.Height / 2) - (t.Y / 2) + 50), c);
+        }
+
+        private void Reset()
+        {
+            gameState = GameState.RUNNING;
+            playerManager.Clear();
+            nodeManager.Clear();
+
+            for (int i = 0; i < 4; i++)
+            {
+                nodeManager.AddNode();
+                playerManager.AddPlayer(i);
+            }
+
+        }
     }
 }

@@ -14,3 +14,4 @@ C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\Ne
 C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\BloomExtract.xnb
 C:\Users\Daniel\documents\visual studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\GaussianBlur.xnb
 C:\Users\Daniel\Documents\Visual Studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\bg.xnb
+C:\Users\Daniel\Documents\Visual Studio 2012\Projects\NeonTactics\NeonTactics\NeonTactics\bin\x86\Debug\Content\forte.xnb
