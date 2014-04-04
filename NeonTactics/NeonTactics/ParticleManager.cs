@@ -15,21 +15,25 @@ namespace NeonTactics
     {
         private Texture2D sprite;
         public List<Particle> Particles;
+        public bool Enabled { get; set; }
 
         public ParticleManager(Texture2D px)
         {
             sprite = px;
             Particles = new List<Particle>();
+            Enabled = true;
         }
 
         public void Update(GameTime gameTime)
         {
+            if (!Enabled) { return; }
             Particles.ForEach(x => x.Update(gameTime));
             Particles.RemoveAll(x => x.Lifetime < 0.0f);
         }
 
         public void Draw(SpriteBatch s)
         {
+            if (!Enabled) { return; }
             Particles.ForEach(x => x.Draw(s));
         }
 

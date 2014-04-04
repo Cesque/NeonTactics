@@ -15,6 +15,9 @@ namespace NeonTactics
     {
         private Texture2D green, purple, white, line;
         public List<Node> Nodes;
+        public int MaxNodes = 4;
+        public float NodeTimerMax = 2.0f;
+        public float NodeTimer;
 
         public NodeManager(Texture2D g, Texture2D p, Texture2D w, Texture2D l)
         {
@@ -23,6 +26,7 @@ namespace NeonTactics
             white = w;
             line = l;
             Nodes = new List<Node>();
+            NodeTimer = 2.0f;
         }
 
         public void AddNode()
@@ -38,6 +42,13 @@ namespace NeonTactics
 
         public void Update(GameTime gameTime)
         {
+            NodeTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Nodes.RemoveAll(x => x.IsDead);
+            if (NodeTimer < 0.0f && Nodes.Count < MaxNodes)
+            {
+                NodeTimer = NodeTimerMax;
+                AddNode();
+            }
             Nodes.ForEach(x => x.Update(gameTime));
         }
 

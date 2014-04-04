@@ -34,6 +34,8 @@ namespace NeonTactics
 
         SpriteFont forte;
 
+        GamePadState old;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -86,11 +88,7 @@ namespace NeonTactics
 
             gameState = GameState.RUNNING;
 
-            for (int i = 0; i < 4; i++)
-            {
-                nodeManager.AddNode();
-                playerManager.AddPlayer(i);
-            }
+            Reset();
             // TODO: use this.Content to load your game content here
         }
 
@@ -111,6 +109,11 @@ namespace NeonTactics
         protected override void Update(GameTime gameTime)
         {
             // TODO: Add your update logic here
+            var state = GamePad.GetState(PlayerIndex.One);
+            if (state.DPad.Left == ButtonState.Pressed && old.DPad.Left != ButtonState.Pressed)
+            {
+                particleManager.Enabled = !particleManager.Enabled;
+            }
             switch (gameState)
             {
                 case GameState.RUNNING:
@@ -122,6 +125,7 @@ namespace NeonTactics
             }
 
             base.Update(gameTime);
+            old = state;
         }
 
         /// <summary>
@@ -181,6 +185,11 @@ namespace NeonTactics
 
             nodeManager.Nodes.ForEach(n =>
             {
+                for(int i=0; i<2; i++)
+                {
+                    //var v = Vector2.Transform(n.Velocity, Matrix.
+                    particleManager.Add(n.Position, Vector2.Transform(Vector2.Multiply(Vector2.Zero - n.Velocity, (float)(Globals.RNG.NextDouble() * 3)), Matrix.CreateRotationZ((float)MathHelper.ToRadians(45 - (float)Globals.RNG.NextDouble() * 90))), n.GetTeamColor()*0.3f);
+                }
                 playerManager.Players.ForEach(p =>
                 {
                     if (p.GetBoundingBox().Intersects(n.GetBoundingBox()))
@@ -273,7 +282,7 @@ namespace NeonTactics
 
             for (int i = 0; i < 4; i++)
             {
-                nodeManager.AddNode();
+                //nodeManager.AddNode();
                 playerManager.AddPlayer(i);
             }
 

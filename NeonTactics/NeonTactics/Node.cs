@@ -60,6 +60,10 @@ namespace NeonTactics
         public float Rotation { get; set; }
         public float RotationSpeed { get; set; }
         public Vector2 Velocity { get; set; }
+        public float LifetimeMax = 12.0f;
+        public float LifetimeMin = 6.0f;
+        public float Lifetime { get; set; }
+        public bool IsDead { get; set; }
 
         public Node(Texture2D green, Texture2D purple, Texture2D white, Texture2D line, Vector2 position) : this(green, purple, white, line, position, 0.0f ) 
         {
@@ -77,10 +81,17 @@ namespace NeonTactics
             Velocity = new Vector2(0.5f - (float)(Globals.RNG.NextDouble() * 1), 0.5f - (float)(Globals.RNG.NextDouble() * 1));
             LineSprite = line;
             RotationSpeed = (float)(Globals.NodeRotationSpeed - (Globals.RNG.NextDouble() * Globals.NodeRotationSpeed * 2));
+            Lifetime = LifetimeMin + ((float)Globals.RNG.NextDouble() * (LifetimeMax - LifetimeMin));
+            IsDead = false;
         }
 
         public void Update(GameTime gameTime)
         {
+            Lifetime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (Lifetime < 0.0f)
+            {
+                IsDead = true;
+            }
             Position += Velocity;
             Rotation += RotationSpeed;
             Rotation %= MathHelper.TwoPi;
